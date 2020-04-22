@@ -2,19 +2,21 @@ clear all
 close all 
 clc
 
-features = [1,2,3,4];
+class1 = load('class_1');   % Setosa
+class2 = load('class_2');   % Versicolour
+class3 = load('class_3');   % Virginica
+features = [1,2,3,4];       % 1,2,3,4 to test all features
 
-C = 3;                       %Num classes
-D = size(features,2);        %Num traits
+C = 3;        %Num classes
+D = size(features,2);       %Num features
 
 N_train = 30;
 N_test = 20;
 
-class1 = load('class_1');   % Setosa
-class2 = load('class_2');   % Versicolour
-class3 = load('class_3');   % Virginica
 
-class1 = class1(:,features);
+
+%Remove "Unwanted features"
+class1 = class1(:,features); 
 class2 = class2(:,features);
 class3 = class3(:,features);
 
@@ -74,8 +76,6 @@ for k = 1:size(train_set,2)
     predicted_train(class, k) = 1;
 end
 
-% testconf = confusion1(T,predicted_train)
-% trainconf = confusion1(test_labels, predicted_test)
 
 figure(1)
 plotconfusion(T, predicted_train);
