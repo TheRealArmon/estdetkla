@@ -1,5 +1,5 @@
 
-function [] = plotConf1(labels, predictions)
+function [] = plotConfNumb(labels, predictions)
 
 targets = zeros(10, 10000);
 
