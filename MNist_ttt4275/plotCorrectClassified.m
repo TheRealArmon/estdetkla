@@ -1,34 +1,36 @@
-close all
-
-num_correct = 0;
-
-labels = zeros(10, 10000);
-for k = 1:10000
-    labels(testlab(k)+1,k) = 1;
-    [~,i] = max(pred(:,k));
-    if testlab(k)+1 == i
-        num_false = num_false +1;
-    end
-end
-
-correct = zeros(num_correct,1);
-index = 1;
-for k = 1:num_test
+function [] = plotCorrectClassified(classifiedIndex,labels,...
+                                            predictions, testvalues)
     
-    [~,i] = max(pred(:,k));
-    if testlab(k)+1 == i
-        correct(index) = k;
-        index = index + 1;
+    %Counting correctly classified values
+    num_correct = 0;
+    targets = zeros(10, 10000);
+    for k = 1:10000
+        targets(labels(k)+1,k) = 1;
+        [~,i] = max(predictions(:,k));
+        if labels(k)+1 == i
+            num_correct = num_correct +1;
+        end
     end
+    
+    %Generating array of correctly classified indices
+    correct = zeros(num_correct,1);
+    index = 1;
+    for k = 1:size(testvalues,1)
+        [~,i] = max(predictions(:,k));
+        if labels(k)+1 == i
+            correct(index) = k;
+            index = index + 1;
+        end
+    end
+
+    %Generate image from vector
+    k = classifiedIndex;
+    x = zeros(28,28);
+    x(:)= testvalues(correct(k),:);
+    
+    figure(1)
+    fprintf('True label:  %.f \n', labels(correct(k)));
+    [~,i] = max(predictions(:,correct(k)));
+    fprintf('Prediction:  %.f \n', i-1);
+    image(x.');
 end
-
-k = 98; % 98, 
-
-x = zeros(28,28);
-x(:)= testv(correct(k),:);
-figure(1)
-
-disp(testlab(correct(k)));
-[~,i] = max(pred(:,correct(k)));
-disp(i-1);
-image(x.');

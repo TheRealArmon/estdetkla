@@ -2,7 +2,7 @@
 K = 7;
 M = 64;
 
-% clusters = zeros(M*10,size(trainv,2));
+clusters = zeros(M*10,size(trainv,2));
 
 for i = 0:9
     train_i = trainv(trainlab == i, :);
@@ -16,16 +16,13 @@ for i = 0:9
 end
 
 pred_cluster = zeros(10, num_test);
+
 tic
 for k = 1:10000
     d = dist(clusters, testv(k,:).');
     [~, i] = min(d);
     pred_num = clusterlab(i);
     pred_cluster(pred_num + 1,k) = 1;
-    
-    if mod(k,100) == 0
-        k
-    end
 end
 toc
 

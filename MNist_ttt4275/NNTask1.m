@@ -1,4 +1,5 @@
 
+%Takes about an hour to run (results stored in task1_results.mat)
 
 pred = zeros(10, num_test);
 
@@ -8,9 +9,7 @@ for k = 1:num_test
     [~, i] = min(d);
     pred_num = trainlab(i);
     pred(pred_num + 1,k) = 1;
-    
-    if mod(k,100) == 0
-        k
-    end
 end
 toc
+
+save('task1_results.mat', pred);
