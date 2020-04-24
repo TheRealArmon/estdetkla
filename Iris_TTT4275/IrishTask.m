@@ -1,15 +1,23 @@
 clear all 
 close all 
-clc
 
 %Init values
 features = [1,2,3,4];       %Remove numbers to remove correspong features
 C = 3;                      %Num classes
 D = size(features,2);       %Num features
 
-%Swap these for different tasks
-N_train = 20;               %Num training cases
-N_test = 30;                %Num test cases
+N_train = 30;               %Num training cases
+N_test = 20;                %Num test cases
+N_tot = N_train + N_test;   %Total number of cases
+
+%Train/test indices
+%First 30 training, last 20 testing
+idx_train = 1:N_train;
+idx_test  = N_train+1:N_tot;
+
+%First 20 testing, last 30 training
+% idx_train = N_test+1:N_tot;
+% idx_test = 1:N_test;
 
 %Loading data
 class1 = load('class_1');   % Setosa
@@ -22,12 +30,12 @@ class2 = class2(:,features);
 class3 = class3(:,features);
 
 %Combining classes into complete test and trainging sets
-train_set = [class1(1:N_train,:).', ...
-    class2(1:N_train,:).', class3(1:N_train,:).'];
-test_set = [class1(N_train+1:end,:).', ...
-    class2(N_train+1:end,:).', class3(N_train+1:end,:).'];
+train_set = [class1(idx_train,:).', ...
+    class2(idx_train,:).', class3(idx_train,:).'];
+test_set = [class1(idx_test,:).', ...
+    class2(idx_test,:).', class3(idx_test,:).'];
 
-%targets
+%Targets used for training
 t1 = [1 0 0].';
 t2 = [0 1 0].';
 t3 = [0 0 1].';
@@ -62,7 +70,6 @@ while true
 end
 toc
 
-
 %Testing classifier on test cases
 pred_test =  zeros(C, size(test_set,2));
 for k = 1:size(test_set,2)
@@ -81,13 +88,14 @@ for k = 1:size(train_set,2)
     pred_train(class, k) = 1;
 end
 
+%Label arrays for plotting
 test_labels = [ones(1, N_test), 2*ones(1,N_test),3*ones(1,N_test)];
 train_labels = [ones(1, N_train), 2*ones(1,N_train),3*ones(1,N_train)];
 
 figure(1)
 plotConfIris(test_labels, pred_test);
-title("Confusion Matrix for Test Cases");
+title('Test Cases');
 
 figure(2)
 plotConfIris(train_labels, pred_train);
-title("Confusion Matrix for Training Cases");
+title("Training Cases");

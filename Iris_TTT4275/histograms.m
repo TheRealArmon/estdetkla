@@ -15,7 +15,7 @@ petal_length_bin = min(flowers(:,3)):0.2:max(flowers(:,3));
 petal_width_bin = min(flowers(:,4)):0.1:max(flowers(:,4));
 
 %Sepal length 
-figure(1)
+figure(5)
 sgtitle("Histograms over the different flower features")
 
 subplot(221); hold on;
