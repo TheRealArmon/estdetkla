@@ -2,7 +2,7 @@ clear all
 close all 
 clc
 
-
+%Init values
 features = [1,2,3,4];       %Remove numbers to remove correspong features
 C = 3;                      %Num classes
 D = size(features,2);       %Num features
