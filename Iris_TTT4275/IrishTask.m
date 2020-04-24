@@ -11,6 +11,7 @@ D = size(features,2);       %Num features
 N_train = 20;               %Num training cases
 N_test = 30;                %Num test cases
 
+%Loading data
 class1 = load('class_1');   % Setosa
 class2 = load('class_2');   % Versicolour
 class3 = load('class_3');   % Virginica
