@@ -1,7 +1,7 @@
 function [] = plotMissClassified(classifiedIndex,labels,...
                                             predictions, testvalues)
     
-    %Counting correctly missclassified values targets matrix
+    %Counting targets matrix for missclassified values
     num_false = 0;
     targets = zeros(10, size(testvalues,1));
     for k = 1:size(testvalues,1)
@@ -12,7 +12,7 @@ function [] = plotMissClassified(classifiedIndex,labels,...
         end
     end
     
-    %Generating array of correctly missclassified indices
+    %Generating array of missclassified indices
     false = zeros(num_false,1);
     index = 1;
     for k = 1:size(testvalues,1)
@@ -28,9 +28,11 @@ function [] = plotMissClassified(classifiedIndex,labels,...
     x = zeros(28,28);
     x(:)= testvalues(false(k),:);
     
-    figure(1)
-    fprintf('True label:  %.f \n', labels(false(k)));
+%     fprintf('True label:  %.f \n', labels(false(k)));
     [~,i] = max(predictions(:,false(k)));
-    fprintf('Prediction:  %.f \n', i-1);
+%     fprintf('Prediction:  %.f \n', i-1);
+    disp(num_false);
     image(x.');
+    title(['True label: ' num2str(labels(false(k))) ...
+        '     Prediction: ' num2str(i - 1)])
 end

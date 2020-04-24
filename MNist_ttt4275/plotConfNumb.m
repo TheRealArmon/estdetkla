@@ -1,13 +1,12 @@
-
 function [] = plotConfNumb(labels, predictions)
 
-targets = zeros(10, 10000);
-
-for k = 1:10000
+%Generates targets for plotconfusion function
+targets = zeros(10, size(predictions,2));
+for k = 1:size(predictions,2)
     targets(labels(k)+1,k) = 1;
 end
 
-figure(1)
+%Plots confusion matrix
 plotconfusion(predictions, targets);
 xlabel("Classifier output",'FontSize', 12, 'FontWeight', 'bold');
 ylabel("True label",'FontSize', 12, 'FontWeight', 'bold');

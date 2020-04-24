@@ -1,15 +1,22 @@
 clear all
+close all
 
+%Perform clustering (Only run if Clustered_train is non existing)
+
+% M = 64;
+% clusterData(M);   %Performs the clustering and save data in Clustered_train
+
+%Loading data
 load('data_all.mat');
 load('task1_results.mat');
-load('Clustered_train.mat');
+load('clustered_train.mat');
 
 %KNN search
+K = 7;
 pred_KNN = zeros(10, num_test);
-eqCount = 0;
 tic
 for k = 1:10000
-    idx = knnsearch(clusters, testv(k,:), 'K', 7);
+    idx = knnsearch(clusters, testv(k,:), 'K', K); 
     
     counter= zeros(10,1);
     for i = 1:size(idx,2)
@@ -20,4 +27,10 @@ for k = 1:10000
     pred_KNN(j,k) = 1;
 end
 toc
+
+figure(1)
+plotConfNumb(testlab, pred_KNN);
+title("KNN with clustering");
+
+
 

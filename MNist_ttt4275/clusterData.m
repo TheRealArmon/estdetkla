@@ -1,4 +1,6 @@
 function [] = clusterData(M)
+    %Function that clusters the training data into M clusters
+    
     load('data_all.mat');
     load('task1_results.mat');
     
@@ -14,8 +16,6 @@ function [] = clusterData(M)
         clusterlab(M*i+1:M*(i+1)) = i*ones(M,1);
     end
     
-    save('Clustered_train.mat', 'clusters', 'clusterlab');
-%     save("Clustered_train.mat", clusterlab);
-
+    save('clustered_train.mat', 'clusters', 'clusterlab');
 end
 
