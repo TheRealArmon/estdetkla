@@ -70,8 +70,7 @@ toc
 pred_test =  zeros(C, size(test_set,2));
 for k = 1:size(test_set,2)
     xk = [test_set(:,k);1];
-    gk = sigmoid(W*xk);
-    [~, class] = max(gk);
+    [~, class] = max(W*xk);
     pred_test(class, k) = 1;
 end
 
@@ -79,8 +78,7 @@ end
 pred_train = zeros(C, size(train_set,2));
 for k = 1:size(train_set,2)
     xk = [train_set(:,k);1];
-    gk = sigmoid(W*xk);
-    [~, class] = max(gk);
+    [~, class] = max(W*xk);
     pred_train(class, k) = 1;
 end
 
