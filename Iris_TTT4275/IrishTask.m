@@ -2,7 +2,7 @@ clear all
 close all 
 
 %Init values
-features = [1,2,3,4];       %Remove numbers to remove correspong features
+features = [1,2,3,4];       %Remove numbers to remove corresponding features
 C = 3;                      %Num classes
 D = size(features,2);       %Num features
 
@@ -10,7 +10,7 @@ N_train = 30;               %Num training cases
 N_test = 20;                %Num test cases
 N_tot = N_train + N_test;   %Total number of cases
 
-%Train/test indices
+%Training/test indices
 %First 30 training, last 20 testing
 idx_train = 1:N_train;
 idx_test  = N_train+1:N_tot;
@@ -20,16 +20,16 @@ idx_test  = N_train+1:N_tot;
 % idx_test = 1:N_test;
 
 %Loading data
-class1 = load('class_1');   % Setosa
-class2 = load('class_2');   % Versicolour
-class3 = load('class_3');   % Virginica
+class1 = load('class_1');
+class2 = load('class_2');
+class3 = load('class_3');
 
-%Remove "Unwanted features"
+%Removing "Unwanted features"
 class1 = class1(:,features); 
 class2 = class2(:,features);
 class3 = class3(:,features);
 
-%Combining classes into complete test and trainging sets
+%Combining classes into complete test and training sets
 train_set = [class1(idx_train,:).', ...
     class2(idx_train,:).', class3(idx_train,:).'];
 test_set = [class1(idx_test,:).', ...
@@ -41,19 +41,15 @@ t2 = [0 1 0].';
 t3 = [0 0 1].';
 targets = [repmat(t1, 1, N_train), repmat(t2,1,N_train),repmat(t3,1,N_train)];
 
-
-%function to calculate gradient used in training
-grad_MSE = @(gk, tk, xk) ((gk-tk).*gk.*(1-gk))*xk.' ;
-
 %Gradient descent training
 W = eye(C, D + 1);
-alpha = 0.001;
+alpha = 0.01;
 tol = 0.2;
+grad_MSE = @(gk, tk, xk) ((gk-tk).*gk.*(1-gk))*xk.' ; %Gradient function
 
 tic
 while true
    grad = zeros(size(W));
-   
    for k = 1:size(train_set,2)
        xk = [train_set(:,k); 1];
        gk = sigmoid(W*xk);
@@ -63,7 +59,7 @@ while true
    
    W = W - alpha*grad;
    
-   %Stopping condition: if gradient i "small enough"
+   %Stopping condition: if gradient is "small enough"
    if (norm(grad) < tol)
        break
    end
