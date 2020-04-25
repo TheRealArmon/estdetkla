@@ -11,7 +11,7 @@ load('data_all.mat');
 load('task1_results.mat');
 load('clustered_train.mat');
 
-%KNN search
+%KNN search (takes around 40-50 sek)
 K = 7;
 pred_KNN = zeros(10, num_test);
 tic
