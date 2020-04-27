@@ -28,9 +28,7 @@ function [] = plotCorrectClassified(classifiedIndex,labels,...
     x = zeros(28,28);
     x(:)= testvalues(correct(k),:);
     
-%     fprintf('True label:  %.f \n', labels(correct(k)));
     [~,i] = max(predictions(:,correct(k)));
-%     fprintf('Prediction:  %.f \n', i-1);
     disp(num_correct);
     image(x.');
     title(['True label: ' num2str(labels(correct(k))) ...

@@ -28,9 +28,7 @@ function [] = plotMissClassified(classifiedIndex,labels,...
     x = zeros(28,28);
     x(:)= testvalues(false(k),:);
     
-%     fprintf('True label:  %.f \n', labels(false(k)));
     [~,i] = max(predictions(:,false(k)));
-%     fprintf('Prediction:  %.f \n', i-1);
     disp(num_false);
     image(x.');
     title(['True label: ' num2str(labels(false(k))) ...
