@@ -3,7 +3,7 @@
 
 ## Iris task
 
-The Iris folder contains function for classifying iris flower. The file IrisTask.m works as a main, and by removing number in the features array at the beginning of the script the classifier is run without the corresponding features that are romoved.
+The Iris folder contains function for classifying iris flower. The file IrisTask.m works as a main, and by removing numbers in the features array at the beginning of the script the classifier is trained and tested without the corresponding features that are romoved.
 
 
 ## Handwritten numbers (MNIST)
